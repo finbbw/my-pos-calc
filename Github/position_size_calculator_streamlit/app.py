@@ -122,14 +122,14 @@ with st.sidebar:
     st.header("Trade and Portfolio Inputs")
 
     # Entry price, Stop loss
-    price = st.number_input("1. Entry Price", min_value=0.01, value=100.00, step=0.10, format="%.4f")
-    stop = st.number_input("2. Stop Loss Price", min_value=0.01, value=98.00, step=0.10, format="%.4f")
+    price = st.number_input("1. Entry Price", min_value=0.01, value=100.00, step=0.10, format="%.2f")
+    stop = st.number_input("2. Stop Loss Price", min_value=0.01, value=98.00, step=0.10, format="%.2f")
     
     # Portfolio value
     portfolio_value = st.number_input(
         "3. Portfolio Value",
-        min_value=100.0,
-        value=50000.00,
+        min_value=10000,
+        value=50000,
         step=1000.0,
         help="Your total account trading capital."
     )
