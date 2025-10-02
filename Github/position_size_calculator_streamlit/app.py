@@ -121,15 +121,15 @@ st.markdown("Replicates the full console logic including Risk Heat Cap, Cash Cap
 with st.sidebar:
     st.header("Trade and Portfolio Inputs")
 
-    # Entry price, Stop loss
-    price = st.number_input("1. Entry Price", min_value=0.01, value=100.00, step=0.10, format="%.2f")
-    stop = st.number_input("2. Stop Loss Price", min_value=0.01, value=98.00, step=0.10, format="%.2f")
+    # Entry price, Stop loss - CHANGED FORMAT TO %.2f
+    price = st.number_input("1. Entry Price", min_value=0.01, value=100.00, step=0.01, format="%.2f")
+    stop = st.number_input("2. Stop Loss Price", min_value=0.01, value=98.00, step=0.01, format="%.2f")
     
     # Portfolio value
     portfolio_value = st.number_input(
         "3. Portfolio Value",
-        min_value=10000,
-        value=50000,
+        min_value=100.0,
+        value=50000.00,
         step=1000.0,
         help="Your total account trading capital."
     )
@@ -189,8 +189,10 @@ st.header("Input Summary")
 col_p, col_c, col_r = st.columns(3)
 
 with col_p:
-    st.markdown(f"- **Entry price:** {fmt_currency(price, currency_symbol, 4)}")
-    st.markdown(f"- **Stop loss:** {fmt_currency(stop, currency_symbol, 4)}")
+    # Changed format to 2 decimals for display consistency
+    st.markdown(f"- **Entry price:** {fmt_currency(price, currency_symbol, 2)}")
+    st.markdown(f"- **Stop loss:** {fmt_currency(stop, currency_symbol, 2)}")
+    # Kept per-share risk at 4 decimals as it is often a small value
     st.markdown(f"- **Stop distance:** {fmt_currency(per_share_risk, currency_symbol, 4)} ({stop_dist_pct:.2f}%) of entry price")
 
 with col_c:
@@ -236,12 +238,13 @@ st.dataframe(
         "Stop %": "{:.2f}%",
         "Final Shares": "{:,.0f}",
     }),
-    width='stretch', # Replaced use_container_width=True
+    width='stretch',
     hide_index=True
 )
 
-st.markdown(f"\nInputed Entry price: **{fmt_currency(price, currency_symbol, 4)}**")
-st.markdown(f"Inputed Stop loss: **{fmt_currency(stop, currency_symbol, 4)}**")
+# Changed format to 2 decimals for display consistency
+st.markdown(f"\nInputed Entry price: **{fmt_currency(price, currency_symbol, 2)}**")
+st.markdown(f"Inputed Stop loss: **{fmt_currency(stop, currency_symbol, 2)}**")
 
 # 2. Table 2: Details (descending by Heat %)
 st.header("\nTable 2: Details (descending by Heat %)")
@@ -281,7 +284,7 @@ st.dataframe(
         "Shares(PosCap)": "{:,.0f}",
         "Risk %": "{}" # Already formatted string
     }),
-    width='stretch', # Replaced use_container_width=True
+    width='stretch',
     hide_index=True
 )
 
